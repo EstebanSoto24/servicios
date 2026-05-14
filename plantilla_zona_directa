@@ -1,0 +1,23 @@
+; Fichero de zona directa para ejemplo.com
+$TTL 3600
+@   IN  SOA ns1.ejemplo.com. admin.ejemplo.com. (
+            2024051401  ; Serial
+            3600        ; Refresh
+            1800        ; Retry
+            604800      ; Expire
+            86400 )     ; Minimum TTL
+
+    IN  NS  master.ejemplo.com.
+    IN  NS  slave.ejemplo.com.
+
+; Registros A 
+ns1         IN  A   192.168.1.10
+ns2         IN  A   192.168.1.11
+mail        IN  A   192.168.1.20
+www         IN  A   192.168.1.30
+ftp         IN  A   192.168.1.40
+
+; Registros CNAME (alias)
+blog        IN  CNAME   www.ejemplo.com.
+shop        IN  CNAME   www.ejemplo.com.
+

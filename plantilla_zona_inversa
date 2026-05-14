@@ -1,0 +1,18 @@
+
+; Nombre de zona: 1.168.192.in-addr.arpa
+
+$TTL 3600
+@   IN  SOA ns1.ejemplo.com. admin.ejemplo.com. (
+            2024051401  ; Serial
+            3600        ; Refresh
+            1800        ; Retry
+            604800      ; Expire
+            86400 )     ; Minimum TTL
+
+    IN  NS  master.ejemplo.com.
+    IN  NS  slave.ejemplo.com.
+
+; Registros PTR (mapeo inverso)
+1   IN  PTR ejemplo.com.
+10  IN  PTR ns1.ejemplo.com.
+11  IN  PTR ns2.ejemplo.com.
