@@ -12,7 +12,8 @@
 VERDE='\033[0;32m'
 ROJO='\033[0;31m'
 AMARILLO='\033[1;33m'
-NC='\033[0m' # Sin color
+AZUL='\033[0;34m'
+NC='\033[0m'
 
 # ---- Verificar que se pasó un argumento ----
 if [ -z "$1" ]; then
@@ -28,6 +29,28 @@ FECHA=$(date +%Y%m%d)
 SERIAL="${FECHA}01"
 FICHERO="db.${DOMINIO}"
 RUTA_SALIDA="/etc/bind/${FICHERO}"
+
+echo ""
+echo -e "${AZUL}============================================${NC}"
+echo -e "${AZUL}   Generador de zona DNS directa           ${NC}"
+echo -e "${AZUL}   Dominio: ${DOMINIO}                     ${NC}"
+echo -e "${AZUL}============================================${NC}"
+echo ""
+
+# ---- Pedir la dirección IP base ----
+echo -e "${AMARILLO}📌 Introduce la red base para los registros A${NC}"
+echo -e "${AMARILLO}   Ejemplo: 192.168.1  (sin el último octeto)${NC}"
+read -p "   Red base: " RED_BASE
+
+# Validar que la red base tiene formato correcto (3 octetos)
+if ! echo "$RED_BASE" | grep -qE '^([0-9]{1,3}\.){2}[0-9]{1,3}$'; then
+    echo -e "${ROJO}❌ Error: Formato de red incorrecto. Usa formato: 192.168.1${NC}"
+    exit 1
+fi
+
+echo ""
+echo -e "${VERDE}✅ Red base: ${RED_BASE}.x${NC}"
+echo ""
 
 # ---- Verificar si el fichero ya existe ----
 if [ -f "$RUTA_SALIDA" ]; then
@@ -49,7 +72,7 @@ cat > "$RUTA_SALIDA" << EOF
 ; ============================================
 
 \$TTL 3600
-@   IN  SOA ns1.${DOMINIO}. admin.${DOMINIO}. (
+@   IN  SOA ${DOMINIO}. admin.${DOMINIO}. (
             ${SERIAL}   ; Serial
             3600        ; Refresh  (1 hora)
             1800        ; Retry    (30 minutos)
@@ -61,20 +84,15 @@ cat > "$RUTA_SALIDA" << EOF
     IN  NS  slave.${DOMINIO}.
 
 ; ---- Registros A (nombre -> IP) ----
-ns1         IN  A   192.168.1.10
-ns2         IN  A   192.168.1.11
-master      IN  A   192.168.1.10
-slave       IN  A   192.168.1.11
-mail        IN  A   192.168.1.20
-www         IN  A   192.168.1.30
-ftp         IN  A   192.168.1.40
+ns2         IN  A   ${RED_BASE}.11
+master      IN  A   ${RED_BASE}.10
+slave       IN  A   ${RED_BASE}.11
+mail        IN  A   ${RED_BASE}.20
+ftp         IN  A   ${RED_BASE}.40
 
 ; ---- Registros CNAME (alias) ----
-blog        IN  CNAME   www.${DOMINIO}.
-shop        IN  CNAME   www.${DOMINIO}.
-
-; ---- Registros MX (correo) ----
-@           IN  MX  10  mail.${DOMINIO}.
+blog        IN  CNAME   ${DOMINIO}.
+shop        IN  CNAME   ${DOMINIO}.
 EOF
 
 # ---- Verificar que se creó correctamente ----
