@@ -1,0 +1,56 @@
+# /etc/network/interfaces
+
+source /etc/network/interfaces.d/*
+
+auto lo
+iface lo inet loopback
+
+# =========================================
+# INTERFAZ ens18 - DHCP
+# =========================================
+auto ens18
+iface ens18 inet dhcp
+
+# =========================================
+# INTERFAZ ens19
+# =========================================
+# auto ens19
+# iface ens19 inet static
+# address 192.168.1.100
+# netmask 255.255.255.0
+# gateway 192.168.1.1
+# dns-nameservers 8.8.8.8 8.8.4.4
+# dns-search example.com
+
+# =========================================
+# INTERFAZ ens20
+# =========================================
+# auto ens20
+# iface ens20 inet static
+# address 10.0.0.50
+# netmask 255.255.255.0
+# gateway 10.0.0.1
+# dns-nameservers 8.8.8.8 8.8.4.4
+# dns-search example.com
+
+# =========================================
+# INTERFAZ ens21
+# =========================================
+# auto ens21
+# iface ens21 inet static
+# address 10.0.0.50
+# netmask 255.255.255.0
+# gateway 10.0.0.1
+# dns-nameservers 8.8.8.8 8.8.4.4
+# dns-search example.com
+
+# =========================================
+# INTERFAZ ens22
+# =========================================
+# auto ens22
+# iface ens22 inet static
+# address 172.16.0.10
+# netmask 255.255.255.0
+# gateway 172.16.0.1
+# dns-nameservers 8.8.8.8 8.8.4.4
+# dns-search example.com
