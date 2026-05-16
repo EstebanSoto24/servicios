@@ -3,8 +3,9 @@ zone "iesguadalpenia.net"
 {
 	type master;
 	file "/etc/bind/db.iesguadalpenia.net";
-	allow-query {127.0.0.1; 172.26.10.0/24;};
-	allow-transfer {127.0.0.1; 172.26.10.0/24;};
+	allow-query { 127.0.0.1; 172.26.10.0/24; };
+	allow-transfer { 127.0.0.1; 172.26.10.0/24; };
+	also-notify { 2.4.6.4; };
 };
 
 //Busqueda inversa del dominio iesguadalpenia.net
@@ -12,6 +13,7 @@ zone "10.26.172.in-addr.arpa"
 {
 	type master;
 	file "/etc/bind/db.172.26.10";
-	allow-query {127.0.0.1; 172.26.10.0/24;};
-	allow-transfer {127.0.0.1; 172.26.10.0/24;};
+	allow-query { 127.0.0.1; 172.26.10.0/24; };
+	allow-transfer { 127.0.0.1; 172.26.10.0/24; };
+	also-notify { 2.4.6.4; };
 };
