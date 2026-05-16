@@ -93,7 +93,7 @@ def generate_reverse_zone(subnet, records, soa_record, ns_records, origin_domain
     
     # Crear el nombre de la zona inversa
     octets = str(network.network_address).split('.')[:3]
-    reverse_zone_name = f"{'.'.join(reversed(octets))}.in-addr.arpa"
+    reverse_zone_name = f"{'.'.join(reversed(octets))}"
     
     # Extraer el dominio principal del SOA
     if soa_record:
