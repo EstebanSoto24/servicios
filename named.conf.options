@@ -1,0 +1,9 @@
+options {
+	directory “/etc/bind”;
+	listen-on { any; };
+	listen-on-v6 { any; };
+	allow-query { any; };
+	allow-transfer { any; };
+	forwarders { 8.8.8.8;
+	8.8.4.4; };
+};
